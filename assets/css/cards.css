@@ -1,0 +1,232 @@
+.playing-cards{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+/**
+ * Hands are the players hand
+ */
+ .playing-cards .hand {
+    cursor: pointer;
+    font-size: 1.1em;
+    text-align: center;
+}
+.playing-cards .hand .card {
+    margin-right: -.5em;
+    margin-left: -.5em;
+}
+/**
+ * Tables are the traded cards
+ */
+ .playing-cards .table {
+    font-size: 1.1em;
+    cursor: pointer;
+    text-align: center;
+}
+.playing-cards .table .card {
+    margin-right: 1em;
+    margin-left: 1em;
+}
+/*
+ * Played are the middle cards
+ */
+.playing-cards .played {
+    font-size: 1.1em;
+    cursor: default;
+    width: 265px;
+    height: 265px;
+    position: absolute;
+    left: 50%;
+    margin-left: -132.5px;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-delay: 0.5s;
+    -webkit-animation-timing-function: ease-in-out;
+}
+.playing-cards .played .card.left {
+    position: absolute;
+    transform: translateX(0.65em) translateY(1.65em) rotate(270deg);
+    -webkit-transform: translateX(0.65em) translateY(1.65em) rotate(270deg);
+}
+.playing-cards .played .card.top {
+    position: absolute;
+    transform: translateX(2.65em);
+    -webkit-transform: translateX(2.65em);
+}
+.playing-cards .played .card.bottom {
+    position: absolute;
+    transform: translateX(2.65em) translateY(3.65em) rotate(180deg);
+    -webkit-transform: translateX(2.65em) translateY(3.65em) rotate(180deg);
+}
+.playing-cards .played .card.right {
+    position: absolute;
+    transform: translateX(4.65em) translateY(1.65em) rotate(90deg);
+    -webkit-transform: translateX(4.65em) translateY(1.65em) rotate(90deg);
+}
+/**
+ * Card shape and animations
+ */
+.playing-cards .card {
+    font-size: 2em;
+    display: inline-block;
+    width: 3.3em;
+    height: 4.6em;
+    position: relative;
+    font-family: monospace;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: -webkit-transform 0.1s;
+    transition: transform 0.1s;
+}
+.playing-cards .card .front, .playing-cards .card .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: .25em;
+    background: #FFF;
+    -webkit-border-radius: .3em;
+    border-radius: .3em;
+    -webkit-box-shadow: .1em .1em .3em #444;
+    box-shadow: .1em .1em .3em #444;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.playing-cards .card.flipped {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+.playing-cards .card.hide{
+     visibility: hidden;
+}
+.playing-cards .card .back,
+.playing-cards .card .front {
+    background-color: #fff;
+    -webkit-transform: translateZ(1px);
+    transform: translateZ(1px);
+}
+.playing-cards .card.hover {
+    -webkit-transform: translateY(-0.5em);
+    transform: translateY(-0.5em);
+}
+.playing-cards .card .back {
+    background: -webkit-radial-gradient(rgba(0,0,0,.1), rgba(0,0,0,.1)), url("../images/norwegian_rose_@2X.png");
+    background-size: 48px;
+    -webkit-box-shadow: inset 0 0 0px .2em #FFF, .1em .1em .3em #444;
+    box-shadow: inset 0 0 0px .2em #FFF, .1em .1em .3em #444;
+    -webkit-transform: rotateY(-180deg) translateZ(1px);
+    transform: rotateY(-180deg) translateZ(1px);
+}
+@-webkit-keyframes anim-left {
+    100% {
+         -webkit-transform: translateX(-300px) scale(.75,.75);
+        opacity: 0;
+   }
+}
+.playing-cards .played.anim-left{
+    -webkit-animation-name: anim-left;
+}
+@-webkit-keyframes anim-top {
+    100% {
+         -webkit-transform: translateY(-300px) scale(.75,.75);
+        opacity: 0;
+   }
+}
+.playing-cards .played.anim-top{
+    -webkit-animation-name: anim-top;
+}
+@-webkit-keyframes anim-bottom {
+    100% {
+         -webkit-transform: translateY(300px) scale(.75,.75);
+        opacity: 0;
+   }
+}
+.playing-cards .played.anim-bottom{
+    -webkit-animation-name: anim-bottom;
+}
+@-webkit-keyframes anim-right {
+    100% {
+        -webkit-transform: translateX(300px) scale(.75,.75);
+        opacity: 0;
+   }
+}
+.playing-cards .played.anim-right{
+    -webkit-animation-name: anim-right;
+}
+
+
+/**
+ * Card look
+ */
+.playing-cards .card .front .rank {
+    height: 25%;
+    text-align: left;
+    position: relative;
+    top: -.3em;
+}
+.playing-cards .card .front .suit {
+    text-align: left;
+    font-size: .7em;
+    height: 25%;
+    position: relative;
+    top: -.3em;
+}
+.playing-cards .card .front .icon {
+    text-align: center;
+    font-size: 2.9em;
+    height: 50%;
+    position: relative;
+    top: -.45em;
+}
+.playing-cards .card.hearts, .playing-cards .card.diams {
+    color: #DD0000;
+}
+.playing-cards .card.clubs, .playing-cards .card.spades {
+    color: #333;
+}
+.card.disabled .front{
+    background: #808080 !important;
+}
+.playing-cards .card.disabled.diams,
+.playing-cards .card.disabled.hearts {
+    color: #6F0101 !important;
+}
+.playing-cards .card.disabled.spades,
+.playing-cards .card.disabled.clubs {
+    color: #1A1A1A !important;
+}
+/**
+* Small fixes
+*/
+.playing-cards .card.hearts.rank-a .front .icon {
+    margin-top: .1em;
+    font-size: 2.7em;
+}
+/**
+* Card icons
+*/
+.playing-cards .card.rank-10 .suit, .playing-cards .card.rank-9 .suit, .playing-cards .card.rank-8 .suit, .playing-cards .card.rank-7 .suit, .playing-cards .card.rank-6 .suit, .playing-cards .card.rank-5 .suit, .playing-cards .card.rank-4 .suit, .playing-cards .card.rank-3 .suit, .playing-cards .card.rank-2 .suit {
+    height: 0px;
+}
+/*High Packing*/
+.playing-cards .card.rank-10 .icon {
+    margin-top: 10%;
+    height: 75%;
+    font-size: .75em;
+    letter-spacing: -.1em;
+    word-spacing: -.2em;
+}
+/*Medium Packing*/
+.playing-cards .card.rank-9 .icon, .playing-cards .card.rank-8 .icon, .playing-cards .card.rank-7 .icon {
+    margin-top: 10%;
+    height: 75%;
+    font-size: .75em;
+    letter-spacing: .1em;
+    word-spacing: -.2em;
+}
+/*Low Packing*/
+.playing-cards .card.rank-6 .icon, .playing-cards .card.rank-5 .icon, .playing-cards .card.rank-4 .icon, .playing-cards .card.rank-3 .icon, .playing-cards .card.rank-2 .icon {
+    margin-top: 10%;
+    height: 75%;
+    font-size: .75em;
+    letter-spacing: 0em;
+    word-spacing: .25em;
+}

@@ -1,0 +1,37 @@
+.slider {
+    position: absolute;
+    top: 0px;
+    right: -500px;
+    width: 500px;
+    height: 100%;
+    background-color: #FFF;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-in-out;
+    -webkit-animation-name: close;
+    -webkit-box-shadow: -1px 0px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: -1px 0px 1px rgba(0, 0, 0, 0.5);
+}
+.slider.open {
+    -webkit-transform: translateX(-500px);
+}
+.slider .tab {
+    top: 200px;
+    right: 500px;
+    position: absolute;
+    z-index: 1;
+}
+.slider .tab .btn {
+    position: relative;
+    left: 29px;
+    padding: 6px 25px;
+    font-weight: bold;
+    transform:rotate(-90deg);
+    -webkit-transform:rotate(-90deg);
+    border-radius: 4px 4px 0px 0px;
+    border-bottom: none;
+    -webkit-box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.5);
+}
+.slider .body {
+    width: 100%;
+}

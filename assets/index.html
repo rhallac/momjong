@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+    Video Hearts
+  </title>
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css">
+  <link href="css/cards.css" rel="stylesheet" media="screen" type="text/css">
+  <link href="css/slider.css" rel="stylesheet" media="screen" type="text/css">
+  <link href="css/main.css" rel="stylesheet" media="screen" type="text/css">
+</head>
+
+<body>
+  <div class="overlay-gradient"></div>
+  <img class="big-heart" src="../images/bigheart_@2X.png">
+  <!-- Preload Background Images -->
+  <div class="image-preload">
+    <!-- Mic Preload -->
+    <div class="mic"></div>
+    <div class="mic off"></div>
+    <!-- Card Preload -->
+    <div class="playing-cards">
+      <div class="played">
+        <div class="card">
+          <div class="front"></div>
+          <div class="back"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="login-view">
+    <div class="container">
+      <div class="row">
+        <div class="login-title col-xs-3">
+          <strong>Hearts</strong>
+        </div>
+        <div class="col-xs-9 login-container">
+          <div id="login-container-forms" class="col-xs-9 col-md-5 pull-right">
+            <form class="input-group hidden">
+              <input id="playername" class="form-control" placeholder="Enter Name" type="text" autofocus data-toggle="popover" data-content="Error: Name already in use" data-placement="bottom" data-trigger="manual">
+              <span class="input-group-btn">
+                <input id="log-in" type="submit" value="Log in" class="btn btn-primary">
+                </input>
+              </span>
+            </form>
+            <div class="current-user pull-right hidden">
+              Signed in as
+              <strong>
+                <span id="current-user-name"></span>
+              </strong>
+              &nbsp;|&nbsp;
+              <a id="log-out">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="list-view">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3 user-box">
+
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="alert alert-dismissable alert-warning fade in hidden">
+                <span id="name-taken"></span>
+                <button type="button" class="close" aria-hidden="true">&times;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <div class="panel-title">
+                  <h3>Games</h3>
+                </div>
+              </div>
+              <table id="game-list-table" class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Players</th>
+                    <th>Round</th>
+                    <th>
+                      <div class="text-center btn btn-md btn-success" id="newtable">
+                        <strong>New Game</strong>&nbsp;
+                        <span class="glyphicon glyphicon-plus"></span>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Body for tables -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="game-view" class="hidden">
+    <div class="container">
+      <div class="nav">
+        <h3>
+          <div id="leave-table" class="nav-back btn btn-default">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <strong>Back</strong>
+          </div>
+        </h3>
+        <h3>
+          <div class="nav-info label label-primary">
+            <div id="info-text" class=""></div>
+          </div>
+        </h3>
+      </div>
+
+      <div class="row">
+        <!-- Top cards -->
+        <div class="col-xs-12">
+          <div class="text-center" id="topplayer">
+            <div class="text-center user-box">
+              <h3 class="name-box top-name-box">
+                <span id="topname" class="label label-default">Open</span>
+              </h3>
+              <img id="img-top" src="images/placeholder_@2X.png" alt="..." class="img-circle placeholder">
+              <video id="video-top" class="hidden" autoplay></video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Left Hand-->
+        <div class="col-xs-2" id="leftplayer">
+          <div class="pull-left">
+            <div class="text-center user-box">
+              <h3 class="name-box">
+                <span id="leftname" class="label label-default">Open</span>
+              </h3>
+              <img id="img-left" src="images/placeholder_@2X.png" alt="..." class="img-circle placeholder">
+              <video id="video-left" class="hidden" autoplay></video>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center Stacks -->
+        <div id="center-cards" class="col-xs-8">
+          <!-- Play Stack -->
+          <div class="playing-cards">
+            <div id="played-cards" class="played">
+            </div>
+          </div>
+
+          <!-- Trade Stack -->
+          <div class="playing-cards">
+            <div id="traded-cards" class="table">
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Hand -->
+        <div class="col-xs-2" id="rightplayer">
+          <div class="pull-right">
+            <div class="text-center user-box">
+              <h3 class="name-box">
+                <span id="rightname" class="label label-default">Open</span>
+              </h3>
+              <img id="img-right" src="images/placeholder_@2X.png" alt="..." class="img-circle placeholder">
+              <video id="video-right" class="hidden" autoplay></video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- My cards -->
+      <div class="row text-center">
+        <h3 class="name-box my-name-box">
+          <span id="bottomname" class="label label-default"></span>
+        </h3>
+      </div>
+      <div class="row">
+        <div class="playing-cards">
+          <div id="player-hand" class="hand">
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Chat -->
+      <video id="video-local" class="hidden" autoplay muted="true"></video>
+      <div id="video-local-overlay" class="hidden">
+        <div id="video-local-mic" class="mic"></div>
+      </div>
+
+      <!-- Slider -->
+      <div class="slider">
+        <div class="tab">
+          <div id="score-menu-btn" class="btn btn-default">
+              Score
+          </div>
+        </div>
+        <div class="body">
+          <table id="score-table" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Player 1</th>
+                <th>Player 2</th>
+                <th>Player 3</th>
+                <th>Player 4</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <script src="/primus/primus.io.js" type="text/javascript"></script>
+  <script src="js/socket.io.js" type="text/javascript"></script>
+  <script src="/js/easyrtc.js" type="text/javascript"></script>
+  <script src="js/underscore.min.js" type="text/javascript"></script>
+  <script src="js/jquery-2.0.3.min.js" type="text/javascript"></script>
+  <script src="js/jquery.cookie.js" type="text/javascript"></script>
+  <script src="js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="js/ejs.min.js" type="text/javascript"></script>
+  <script src="js/game.js" type="text/javascript"></script>
+</body>
+
+
+</html>
