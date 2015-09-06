@@ -126,9 +126,8 @@ J = Joker = 0
         //Give each suit a value for sorting
         var suitVal = suitVals[card.suit] * 40;
         //Aces are high
-        var rankVal = card.rank*4 - 4;
-        var numVal = card.num;
-        return rankVal + suitVal + numVal;
+        var rankVal = card.rank;
+        return rankVal + suitVal;
     }
     return {
         shuffle: shuffle,

@@ -202,10 +202,10 @@
 }
 .playing-cards .card .front .icon {
     text-align: center;
-    font-size: 2.9em;
+    font-size: 1em;
     height: 50%;
     position: relative;
-    top: -.45em;
+    top: -1.45em;
 }
 .playing-cards .card.hearts, .playing-cards .card.diams {
     color: #DD0000;

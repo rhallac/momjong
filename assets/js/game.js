@@ -823,27 +823,16 @@ $(document).ready(function() {
         "D": "curren",
         "B": "Dagger",
         "C": "rsquo",
-        "RD": "rsquo",
-        "GD": "Dagger",
-        "SD": "curren",
-        "NW": "uarr",
-        "SW": "darr",
-        "EW": "rarr",
-        "WW": "larr",
+        "N": "uarr",
+        "S": "darr",
+        "E": "rarr",
+        "W": "larr",
         "J": "iexcl"
     };
     var inv_suit_map = _.invert(suit_map);
 
     var rank_map = {
-        0: "Joker",
-        10: "Flower",
-        11: "Soap",
-        12: "Green",
-        13: "Red",
-        14: "N",
-        15: "S",
-        16: "E",
-        17: "W"
+        
     };
     var inv_rank_map = _.invert(rank_map);
 
@@ -895,23 +884,27 @@ $(document).ready(function() {
         var rank = _.find(classes, function(c) {
             return (c.indexOf("rank-") === 0);
         });
-        rank = rank.slice(-1);
+        rank = rank.substring(5);
         // Only rank with two characters
-        if (rank === "0") rank = "10";
         return (rank in inv_rank_map) ? parseInt(inv_rank_map[rank]) : parseInt(rank);
     }
 
     function sortValue(card) {
         var suitVals = {
-            "C": 0,
-            "D": 1,
-            "S": 2,
-            "H": 3
+            "D": 0,
+            "B": 1,
+            "C": 2,
+            "F": 3,
+            "N": 4,
+            "S": 5,
+            "E": 6,
+            "W": 7,
+            "J": 8
         };
         //Give each suit a value for sorting
-        var suitVal = suitVals[card.suit] * 13;
+        var suitVal = suitVals[card.suit] * 40;
         //Aces are high
-        var rankVal = card.rank == 1 ? 13 : card.rank - 1;
+        var rankVal = card.rank;
         return rankVal + suitVal;
     }
 
