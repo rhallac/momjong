@@ -833,14 +833,14 @@ $(document).ready(function() {
 
     var suit_map = {
         "F": "lsquo",
-        "D": "curren",
+        "D": "deg",
         "B": "Dagger",
         "C": "rsquo",
         "N": "uarr",
         "S": "darr",
         "E": "rarr",
         "W": "larr",
-        "J": "iexcl"
+        "J": "#74"
     };
     var inv_suit_map = _.invert(suit_map);
 
