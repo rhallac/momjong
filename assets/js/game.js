@@ -819,10 +819,18 @@ $(document).ready(function() {
     // -------------------------------- Helper Functions ----------------------------- //
 
     var suit_map = {
-        "H": "hearts",
-        "C": "clubs",
-        "S": "spades",
-        "D": "diams"
+        "F": "lsquo",
+        "D": "curren",
+        "B": "Dagger",
+        "C": "diams",
+        "RD": "trade",
+        "GD": "oline",
+        "SD": "permil",
+        "NW": "amp"
+        "SW": "lt",
+        "EW": "dagger",
+        "WW": "bdquo",
+        "J": "rdquo"
     };
     var inv_suit_map = _.invert(suit_map);
 
