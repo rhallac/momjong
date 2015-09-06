@@ -187,6 +187,11 @@
 /**
  * Card look
  */
+
+.card img {
+    height: 110%;
+}
+
 .playing-cards .card .front .rank {
     height: 25%;
     text-align: left;

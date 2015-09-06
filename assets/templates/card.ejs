@@ -24,13 +24,14 @@
         <% } else if (rank == "9" || rank == "10" || rank == "11" || rank == "12" ) { %>
             <%=i+"<br><br>"+i%>
         <% } else if (rank == "5" || rank == "6" || rank == "7" || rank == "8" ) { %>
-            <%=i+"<br><br>"%>
+            <%="<br>"+ i+"<br>"%>
         <% } else if (rank == "1" || rank == "2" || rank == "3" || rank == "4" ) { %>
-            <%=i+"DR<br><br>"%>
+            <%= img_tag('../images/dragon.png') %>
+            <%=i+"<br><br>"%>
         <% } else if (Number(rank) >= 50 && Number(rank) < 60) { %>
-            <%="FL"%>
+            <%= img_tag('../images/flower.png') %>
         <% } else if (Number(rank) >= 100 && Number(rank) < 110) { %>
-            <%="Jo"%>
+            <%= img_tag('../images/joker.png') %>
         <% } else if (Number(rank) >= 60 && Number(rank) < 70) { %>
             <%="N"%>
         <% } else if (Number(rank) >= 70 && Number(rank) < 80) { %>
