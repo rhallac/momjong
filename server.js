@@ -213,81 +213,100 @@ primus.on("connection", function(client) {
             var position = player.position;
             var table = tables[player.table];
             table.traded_cards[position] = cards;
-
             if (table.readyToTrade()) {
-                startPlaying(table);
-            } else {
-                var trade_values = _und.values(table.traded_cards);
-                var remaining_trades = 4 - _und.compact(trade_values).length;
-                primus.room(table.id).send("updateRemainingTrades",
-                    table.tradeDir(), remaining_trades);
+                // All 4 players have selected 3 cards
+                doTrades(table);
+                if (table.trade_iteration < 6) {
+                    // Update the remaining trades counter
+                    var trade_values = _und.values(table.traded_cards);
+                    var remaining_trades = 6 - table.trade_iteration; //4 - _und.compact(trade_values).length;
+                    primus.room(table.id).send("updateRemainingTrades",
+                        table.tradeDir(), remaining_trades);
+                } else {
+                    startPlaying(table);
+                }
+                
             }
         }
     });
 
+    function doTrades(table) {
+        var trade_map;
+            for (var pos in table.traded_cards) {
+                var cards = table.traded_cards[pos];
+
+                var player_name = table.positions[pos];
+                var player = table.players[player_name];
+                player.removeCards(cards);
+                console.log("trade iteration " + table.trade_iteration);
+                switch (table.trade_iteration) {
+                case 0:
+                case 5:
+                    //right
+                    trade_map = {
+                        "N": "W",
+                        "S": "E",
+                        "E": "N",
+                        "W": "S"
+                        };
+                    break;
+                case 1:
+                case 4:
+                    //across
+                    trade_map = {
+                        "N": "S",
+                        "S": "N",
+                        "E": "W",
+                        "W": "E"
+                        };
+                    break;
+                case 2:
+                case 3:
+                    //left
+                    trade_map = {
+                        "N": "E",
+                        "S": "W",
+                        "E": "S",
+                        "W": "N"
+                        };
+                    break;
+                };
+                console.log(trade_map);
+                var trade_player_pos = trade_map[pos];
+                var trade_player_name = table.positions[trade_player_pos];
+                var trade_player = table.players[trade_player_name];
+                trade_player.addCards(cards);
+        }
+        table.resetTrade();
+        this.state = "trading";
+        table.trade_iteration++;
+
+        // Send the cards out to the players
+        _und.each(_und.values(table.players), function(player) {
+            var id = player.id;
+            var hand = player.hand;
+            primus.connections[id].send("startTrading", table.safe(), hand);
+        });
+    }
 
     function startPlaying(table) {
-        //setInfoText("REACHED HERE", color_grey);
-        if (table.readyToTrade()) {
-			var trade_map;
-			for (var k = 1; k <= 1; ++k){
-				for (var pos in table.traded_cards) {
-					var cards = table.traded_cards[pos];
+        table.resetTrade();
 
-					var player_name = table.positions[pos];
-					var player = table.players[player_name];
-					player.removeCards(cards);
-
-
-					console.log(k);
-					switch (k) {
-					case 1 || 6:
-						//right
-						trade_map = {
-							"N": "W",
-								"S": "E",
-								"E": "N",
-								"W": "S"
-								};
-					case 2 || 5:
-						//across
-						trade_map = {
-							"N": "S",
-								"S": "N",
-								"E": "W",
-								"W": "E"
-								};
-					case 3 || 4:
-						//left
-						trade_map = {
-							"N": "E",
-								"S": "W",
-								"E": "S",
-								"W": "N"
-								};
-					}
-					var trade_player_pos = trade_map[pos];
-					var trade_player_name = table.positions[trade_player_pos];
-					var trade_player = table.players[trade_player_name];
-					trade_player.addCards(cards);
-				}
-            }
-        }
         //The trade is done, now figure out who goes first
         _und.each(_und.values(table.players), function(player) {
             if (player.isDealer()) {
                 table.turn = player.name;
             }
         });
+
         //Tell everyone to start playing
         table.state = "start_playing";
         _und.each(_und.values(table.players), function(player) {
             var id = player.id;
             var hand = player.hand;
+            // TODO need to call this but not startPlaying (doTrading?)
             primus.connections[id].send("startPlaying", table.safe(), hand);
         });
-        //Make sure we clear out the trade for the future
-        table.resetTrade();
     }
 
     client.on("playCard", function(card) {
