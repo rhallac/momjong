@@ -8,9 +8,7 @@ F = Flower = RANK: 10
 D = Dot = 1 RANK: number 
 B = Bam = 2 RANK: number 
 C = Crack = 3 RANK: number
-SD = Soap Dragon RANK: 11
-GD = Green Dragon RANK: 12
-RD = Red Dragon RANK: 13
+
 NW = North RANK: 14
 SW = South RANK: 15
 EW = East RANK: 16
@@ -18,48 +16,70 @@ WW = WestRANK: 17
 J = Joker = 0 
 
      **/
-    var suits = ["F", "D", "B", "C", "RD", "GD", "SD", "NW", "SW", "EW", "WW", "J"];
+    var suits = ["D", "B", "C", "F", "N", "S", "E", "W", "J"];
     var cards = [];
     var count = 0;
 
-    //creates flowers
-    for (var i = 1; i <= 8; ++i){
-        cards[count++] = {
-            suit: "F",
-            rank: 10,
-            num: i
-        };
-    }
+    
 
-    //creates bam/crack/dot 1-9
-    for (var i = 1; i <= 3; ++i){
-        for (var j = 1; j <= 9; ++j){
+    //creates dot/bam/crack 1-9
+    for (var i = 0; i <= 2; ++i){
+        //0 - 9 where 0 is dragon
+        for (var j = 0; j <= 9; ++j){
             for (var k = 1; k <= 4; ++k){
                 cards[count++] = {
                     suit: suits[i],
-                    rank: j,
-                    num: k
+                    rank: j*4 + k,
                 };
             }
         }
     }
 
- 
-    for (var i = 4; i <= 10; ++i){
-        for (var j = 1; j <= 4; ++j){
-            cards[count++] = {
-                suit: suits[i],
-                rank: 7+i,
-                num: j
-            }
-        }
+    //creates flowers
+    for (var i = 0; i <= 7; ++i){
+        cards[count++] = {
+            suit: "F",
+            rank: 50+i,
+        };
+    }
+
+    //creates N
+    for (var i = 0; i <= 3; ++i){
+        cards[count++] = {
+            suit: "N",
+            rank: 60+i,
+        };
+    }
+
+     //creates S
+    for (var i = 0; i <= 3; ++i){
+        cards[count++] = {
+            suit: "S",
+            rank: 70+i,
+        };
+    }
+
+     //creates E
+    for (var i = 0; i <= 3; ++i){
+        cards[count++] = {
+            suit: "E",
+            rank: 80+i,
+        };
+    }
+
+     //creates W
+    for (var i = 0; i <= 3; ++i){
+        cards[count++] = {
+            suit: "W",
+            rank: 90+i,
+        };
     }
     
-    for (var i = 1; i <= 8; ++i){
+    for (var i = 0; i <= 7; ++i){
         cards[count++] = {
             suit: "J",
-            rank: 0,
-            num: i
+            rank: 100+i,
+           
         };
     }
 
@@ -93,18 +113,15 @@ J = Joker = 0
 
     function sortValue(card) {
         var suitVals = {
-            "F": 0,
-            "D": 1,
-            "B": 2,
-            "C": 3,
-            "RD": 4,
-            "GD": 5,
-            "SD": 6,
-            "NW": 7,
-            "SW": 8,
-            "EW": 9,
-            "WW": 10,
-            "J": 11,
+            "D": 0,
+            "B": 1,
+            "C": 2,
+            "F": 3,
+            "N": 4,
+            "S": 5,
+            "E": 6,
+            "W": 7,
+            "J": 8
         };
         //Give each suit a value for sorting
         var suitVal = suitVals[card.suit] * 40;
