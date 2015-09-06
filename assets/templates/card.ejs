@@ -4,7 +4,7 @@
     <div class="rank" style="visibility: hidden"><%= rank.toUpperCase() %></div>
     
     <div class="suit">
-    <%= i %> 
+        
     </div>
     <div class="icon">
     	<% if (rank == "37" || rank == "38" || rank == "39" || rank == "40") { %>
@@ -27,17 +27,17 @@
     		<%=i+"<br><br>"%>
     	<% } else if (rank == "1" || rank == "2" || rank == "3" || rank == "4" ) { %>
             <%=i+"DR<br><br>"%>
-        <% } else if (rank == "F") { %>
+        <% } else if (Number(rank) >= 50 && Number(rank) < 60) { %>
             <%="FL"%>
-        <% } else if (rank == "J") { %>
+        <% } else if (Number(rank) >= 100 && Number(rank) < 110) { %>
             <%="Jo"%>
-        <% } else if (rank == "N") { %>
+        <% } else if (Number(rank) >= 60 && Number(rank) < 70) { %>
             <%="N"%>
-        <% } else if (rank == "S") { %>
+        <% } else if (Number(rank) >= 70 && Number(rank) < 80) { %>
             <%="S"%>
-        <% } else if (rank == "W") { %>
+        <% } else if (Number(rank) >= 90 && Number(rank) < 100) { %>
             <%="W"%>
-        <% } else if (rank == "E") { %>
+        <% } else if (Number(rank) >= 80 && Number(rank) < 90) { %>
             <%="E"%>
         <% } else { %>
     		<%=""%>
