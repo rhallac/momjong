@@ -3,19 +3,11 @@
   <div class="front">
     <div class="rank"><%= rank.toUpperCase() %></div>
     <div class="suit">
-    	<% if (rank == "a" || rank == "k" || rank == "q" ||rank == "j") { %>
+    	<% if (rank == "F" || rank == "RD" || rank == "GD" ||rank == "SD" || rank == "NW" ||rank == "SW" ||rank == "EW" ||rank == "WW" ||rank == "J") { %>
     		<%= i %>
     	<% } %></div>
     <div class="icon">
-    	<% if (rank == "a") { %>
-    		<%= "&"+suit+";" %>
-    	<% } else if (rank == "k") { %>
-    		<%="&#9818;"%>
-    	<% } else if (rank == "q") { %>
-    		<%="&#9819;"%>
-    	<% } else if (rank == "j") { %>
-    		<%="&#9823;"%>
-    	<% } else if (rank == "10") { %>
+    	<% if (rank == "10") { %>
     		<%=i+i+i+"<br>"+i+i+i+i+"<br>"+i+i+i%>
     	<% } else if (rank == "9") { %>
     		<%=i+i+i+"<br>"+i+i+i+"<br>"+i+i+i%>
@@ -33,7 +25,9 @@
     		<%=i+"<br>"+i+"<br>"+i%>
     	<% } else if (rank == "2") { %>
     		<%=i+"<br><br>"+i%>
-    	<% } else { %>
+    	<% } else if (rank == "1") { %>
+            <%=i%>
+        <% } else { %>
     		<%=""%>
     	<% } %>
 	</div>
