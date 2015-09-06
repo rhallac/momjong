@@ -18,7 +18,7 @@ WW = West
 J = Joker = 0 
 
      **/
-    var suits = ["F", "D", "B", "C", "RD", "GD", "SD", "NW", "SW", "EW". "WW", "J"];
+    var suits = ["F", "D", "B", "C", "RD", "GD", "SD", "NW", "SW", "EW", "WW", "J"];
     var cards = [];
     var count = 0;
 
