@@ -8,59 +8,78 @@
  */
  .playing-cards .hand {
     cursor: pointer;
-    font-size: 1.1em;
+    font-size: .8em;
     text-align: center;
 }
 .playing-cards .hand .card {
-    margin-right: -.5em;
-    margin-left: -.5em;
+    margin-right: 0.0em;
+    margin-left: 0.0em;
 }
 /**
  * Tables are the traded cards
  */
  .playing-cards .table {
-    font-size: 1.1em;
+    font-size: .5em;
     cursor: pointer;
     text-align: center;
 }
 .playing-cards .table .card {
-    margin-right: 1em;
-    margin-left: 1em;
+    margin-right: 0em;
+    margin-left: 0em;
 }
+
 /*
  * Played are the middle cards
  */
 .playing-cards .played {
-    font-size: 1.1em;
-    cursor: default;
-    width: 265px;
-    height: 265px;
-    position: absolute;
-    left: 50%;
-    margin-left: -132.5px;
+    font-size: .5em;
+    cursor: pointer;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    font-family: monospace;
+
+    /*left: 50%;*/
+    /*margin-left: -132.5px;*/
+    /*display: inline-block;*/
     -webkit-animation-duration: 0.5s;
     -webkit-animation-delay: 0.5s;
     -webkit-animation-timing-function: ease-in-out;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: -webkit-transform 0.1s;
+    transition: transform 0.1s;
 }
+
+
+
 .playing-cards .played .card.left {
-    position: absolute;
-    transform: translateX(0.65em) translateY(1.65em) rotate(270deg);
-    -webkit-transform: translateX(0.65em) translateY(1.65em) rotate(270deg);
+    margin-right: 0em;
+    margin-left: 0em;
+    /*position: absolute;
+    transform: translateX(0.0em); translateY(1.65em) rotate(0deg);
+    -webkit-transform: translateX(0.0em);/* translateY(1.65em) rotate(0deg);*/
 }
 .playing-cards .played .card.top {
-    position: absolute;
-    transform: translateX(2.65em);
-    -webkit-transform: translateX(2.65em);
+    margin-right: 0em;
+    margin-left: 0em;
+    /*position: absolute;
+    transform: translateX(2.5em);
+    -webkit-transform: translateX(2.5em);*/
 }
 .playing-cards .played .card.bottom {
-    position: absolute;
-    transform: translateX(2.65em) translateY(3.65em) rotate(180deg);
-    -webkit-transform: translateX(2.65em) translateY(3.65em) rotate(180deg);
+    margin-right: 0em;
+    margin-left: 0em;
+    /*position: absolute;
+    transform: translateX(5em);/* translateY(3.65em) rotate(0deg);
+    -webkit-transform: translateX(5em);/* translateY(3.65em) rotate(0deg);*/
 }
 .playing-cards .played .card.right {
-    position: absolute;
-    transform: translateX(4.65em) translateY(1.65em) rotate(90deg);
-    -webkit-transform: translateX(4.65em) translateY(1.65em) rotate(90deg);
+    margin-right: 0em;
+    margin-left: 0em;
+    /*position: absolute;
+    transform: translateX(7.5em);/* translateY(1.65em) rotate(0deg);
+    -webkit-transform: translateX(7.5em);/* translateY(1.65em) rotate(0deg);*/
 }
 /**
  * Card shape and animations
@@ -94,6 +113,15 @@
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
 }
+
+.playing-cards .callcard {
+    position: absolute;
+    width: 110px;
+    height: 150px;
+    right: 150px;
+    top: -155px;
+}
+
 .playing-cards .card.hide{
      visibility: hidden;
 }
@@ -103,9 +131,12 @@
     -webkit-transform: translateZ(1px);
     transform: translateZ(1px);
 }
-.playing-cards .card.hover {
-    -webkit-transform: translateY(-0.5em);
-    transform: translateY(-0.5em);
+
+.card.hover {
+    -webkit-transform: translateY(-0.5em);    
+    transform: translateY(-0.5em) scale(2.2,2.2);
+    z-index: 9999;
+
 }
 .playing-cards .card .back {
     background: -webkit-radial-gradient(rgba(0,0,0,.1), rgba(0,0,0,.1)), url("../images/norwegian_rose_@2X.png");

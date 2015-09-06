@@ -227,24 +227,55 @@ primus.on("connection", function(client) {
 
 
     function startPlaying(table) {
+        //setInfoText("REACHED HERE", color_grey);
         if (table.readyToTrade()) {
-            for (var pos in table.traded_cards) {
-                var cards = table.traded_cards[pos];
+			var trade_map;
+			for (var k = 1; k <= 1; ++k){
+				for (var pos in table.traded_cards) {
+					var cards = table.traded_cards[pos];
 
-                var player_name = table.positions[pos];
-                var player = table.players[player_name];
-                player.removeCards(cards);
+					var player_name = table.positions[pos];
+					var player = table.players[player_name];
+					player.removeCards(cards);
 
-                var trade_map = table.tradeMap();
-                var trade_player_pos = trade_map[pos];
-                var trade_player_name = table.positions[trade_player_pos];
-                var trade_player = table.players[trade_player_name];
-                trade_player.addCards(cards);
+
+					console.log(k);
+					switch (k) {
+					case 1 || 6:
+						//right
+						trade_map = {
+							"N": "W",
+								"S": "E",
+								"E": "N",
+								"W": "S"
+								};
+					case 2 || 5:
+						//across
+						trade_map = {
+							"N": "S",
+								"S": "N",
+								"E": "W",
+								"W": "E"
+								};
+					case 3 || 4:
+						//left
+						trade_map = {
+							"N": "E",
+								"S": "W",
+								"E": "S",
+								"W": "N"
+								};
+					}
+					var trade_player_pos = trade_map[pos];
+					var trade_player_name = table.positions[trade_player_pos];
+					var trade_player = table.players[trade_player_name];
+					trade_player.addCards(cards);
+				}
             }
         }
         //The trade is done, now figure out who goes first
         _und.each(_und.values(table.players), function(player) {
-            if (player.hasTwoOfClubs()) {
+            if (player.isDealer()) {
                 table.turn = player.name;
             }
         });
@@ -265,38 +296,31 @@ primus.on("connection", function(client) {
             var table = tables[player.table];
             if (table !== undefined && table.turn == player.name) {
                 if (player.hasCard(card)) {
-                    //Cannot play hearts or queen on first turn
-                    if (_und.size(player.hand) === 13) {
-                        if ((card.suit == "S" && card.rank == 12) || card.suit == "H") {
-                            console.log(player.name + " can't start the trick with: " + JSON.stringify(card));
-                            return;
-                        }
-                    }
                     //If this is the first card, set the suit
                     if (_und.size(table.played_cards) === 0) {
                         //Checks to see if we only have hearts left
-                        if (card.suit == "H") {
-                            var have_other_suits = player.hasSuit("S") || player.hasSuit("C") || player.hasSuit("D");
-                            //Can't start with a heart if they aren't broken yet,
-                            //but can if the player only has hearts left
-                            if (table.hearts_broken === false && have_other_suits === true) {
-                                console.log(player.name + " tried to play H, not broken yet: " + JSON.stringify(card));
-                                return;
-                            }
-                        }
+                        // if (card.suit == "H") {
+                        //     var have_other_suits = player.hasSuit("S") || player.hasSuit("C") || player.hasSuit("D");
+                        //     //Can't start with a heart if they aren't broken yet,
+                        //     //but can if the player only has hearts left
+                        //     if (table.hearts_broken === false && have_other_suits === true) {
+                        //         console.log(player.name + " tried to play H, not broken yet: " + JSON.stringify(card));
+                        //         return;
+                        //     }
+                        // }
                         //Once the first card is played, the table is now in the 'playing' state
                         table.state = "playing";
                         //This is the first card, set the trick suit
-                        table.trick_suit = card.suit;
+                        table.trick_suit = "A";
                     }
                     //Check if this card is allowed to be played (outliers taken care of above)
-                    var isValidSuit = (card.suit == table.trick_suit) || !player.hasSuit(table.trick_suit);
+                    var isValidSuit = true;
                     if (isValidSuit === true) {
                         console.log(player.name + " played card " + JSON.stringify(card));
-                        if (card.suit == "H" && table.hearts_broken === false) {
-                            table.hearts_broken = true;
-                            primus.room(table.id).send("heartsBroken");
-                        }
+                        //if (card.suit == "H" && table.hearts_broken === false) {
+                        //    table.hearts_broken = true;
+                        //    primus.room(table.id).send("heartsBroken");
+                        //}
                         if (_und.size(table.played_cards) < 4) {
                             primus.room(table.id).send("cardPlayed", player.name, card,
                                 table.trick_suit);

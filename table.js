@@ -119,17 +119,11 @@ var Table = function() {
         };
     }
 
+// MAKE INTO CHARLESTON
+
     function tradeMap() {
-        switch (this.round % 4) {
-            case 1:
-                //left
-                return {
-                    "N": "E",
-                    "S": "W",
-                    "E": "S",
-                    "W": "N"
-                };
-            case 2:
+        switch (this.round) {
+            case 1 || 6:
                 //right
                 return {
                     "N": "W",
@@ -137,7 +131,7 @@ var Table = function() {
                     "E": "N",
                     "W": "S"
                 };
-            case 3:
+            case 2 || 5:
                 //across
                 return {
                     "N": "S",
@@ -145,10 +139,16 @@ var Table = function() {
                     "E": "W",
                     "W": "E"
                 };
-            case 0:
-                //error
-                return null;
+            case 3 || 4:
+                //left
+                return {
+                    "N": "E",
+                    "S": "W",
+                    "E": "S",
+                    "W": "N"
+                };
         }
+        return null;
     }
 
     function tradeDir() {

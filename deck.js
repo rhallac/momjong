@@ -7,50 +7,24 @@ var Deck = function() {
      * @return An array containing a deck
      *         ex: "11H" is the Jack of hearts
      **/
-    var suits = ["F", "D", "B", "C", "R", "G", "S", "N", "S", "E". "W", "J"];
+    var suits = ["H", "C", "S", "D"];
+    var n = 52;
     var cards = [];
-	var count = 0;
 
-	for (var i = 1; i <= 8; ++i){
-		cards[count++] = {
-			suit: "F",
-			rank: 1,
-			num: i
-		};
-	}
+    var index = n / suits.length;
+    var count = 0;
+    for (var i = 0; i <= 3; ++i) {
+        for (var j = 1; j <= index; ++j) {
+            cards[count++] = {
+                suit: suits[i],
+                rank: j
+            };
+        }
+    }
 
-	for (var i = 1; i <= 3; ++i){
-		for (var j = 1; j <= 9; ++j){
-			for (var k = 1; k <= 4; ++k){
-				cards[count++] = {
-					suit: suits[i],
-					rank: j,
-					num: k
-				};
-			}
-		}
-	}
-
-	for (var i = 4; i <= 10; ++i){
-		for (var j = 1; j <= 4; ++j){
-			cards[count++] = {
-				suit: suits[i],
-				rank: 1,
-				num: j
-			}
-		}
-	}
-	
-	for (var i = 1; i <= 8; ++i){
-		cards[count++] = {
-            suit: "J",
-            rank: 1,
-            num: i
-        };
-	}
-
-
-
+    /**
+     * Shuffles the deck
+     **/
 
     function shuffle() {
         cards = _und.shuffle(cards);
@@ -79,25 +53,16 @@ var Deck = function() {
 
     function sortValue(card) {
         var suitVals = {
-            "F": 0,
+            "C": 0,
             "D": 1,
-            "B": 2,
-            "C": 3,
-            "R": 4,
-            "G": 5,
-            "S": 6,
-            "N": 7,
-            "S": 8,
-            "E": 9,
-            "W": 10,
-            "J": 11,
+            "S": 2,
+            "H": 3
         };
         //Give each suit a value for sorting
-        var suitVal = suitVals[card.suit] * 40;
+        var suitVal = suitVals[card.suit] * 13;
         //Aces are high
-        var rankVal = card.rank*4 - 4;
-		var numVal = card.num;
-        return rankVal + suitVal + numVal;
+        var rankVal = card.rank == 1 ? 13 : card.rank - 1;
+        return rankVal + suitVal;
     }
     return {
         shuffle: shuffle,

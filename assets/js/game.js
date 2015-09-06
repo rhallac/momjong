@@ -422,16 +422,27 @@ $(document).ready(function() {
             name_div.text(name);
             name_div.addClass(color_map[pos]);
             name_div.removeClass(color_grey);
+            if (your_pos == pos) {
+                name_div.append('<div class="button"> Pick Up Card </div>');
+            }
 
-            name_div.append('<div class = "score-label">' + player.score + '</div>');
-            _players[name] = {
-                dir: rel_dir,
-                pos: pos,
-                id: player.id,
-                score_div: name_div.find(".score-label"),
-                color: color_map[pos]
-            };
-
+            if (your_pos == pos) {
+                _players[name] = {
+                    dir: rel_dir,
+                    pos: pos,
+                    id: player.id,
+                    score_div: name_div.find(".score-label"),
+                    color: color_map[pos]
+                };
+            } 
+            else {
+                _players[name] = {
+                    dir: rel_dir,
+                    pos: pos,
+                    id: player.id,
+                    color: color_map[pos]
+                };
+            }  
             //Update the score table's title
             var score_index = score_order.indexOf(pos);
             $score_table_head[score_index].innerText = name;
@@ -507,7 +518,7 @@ $(document).ready(function() {
         $("#player-hand .card").hover(
             function() {
                 //In handler
-                if (!$(this).hasClass("disabled") && !$(this).hasClass("flipped") && !IS_IPAD) {
+                if (!$(this).hasClass("flipped") && !IS_IPAD) {
                     $("#player-hand .card").removeClass("hover");
                     $(this).addClass("hover");
                 }
@@ -517,6 +528,8 @@ $(document).ready(function() {
                 $("#player-hand .card").removeClass("hover");
             }
         );
+
+
 
         $("#player-hand .card").click(function() {
             if (_state == "trading") {
@@ -629,13 +642,13 @@ $(document).ready(function() {
             showCards(new_hand, !IS_IPAD);
 
             //Select the person to go first
-            var two_of_clubs = {
+            /*var two_of_clubs = {
                 suit: "C",
                 rank: 2
             };
             if (_turn == _name) {
                 socket.send("playCard", two_of_clubs);
-            }
+				}*/
         }
     }
 
@@ -660,39 +673,40 @@ $(document).ready(function() {
     }
 
     function enableAllowedCards() {
-        var $bc = $("#player-hand");
-        var $hearts = $bc.find(".card.hearts");
-        var $diams = $bc.find(".card.diams");
-        var $clubs = $bc.find(".card.clubs");
-        var $spades = $bc.find(".card.spades");
-        var $all_cards = $bc.find(".card");
-        var $queen_of_spades = $bc.find(".card.rank-q.spades");
+        $("#player-hand .card").removeClass("disabled");
+        // var $bc = $("#player-hand");
+        // var $hearts = $bc.find(".card.hearts");
+        // var $diams = $bc.find(".card.diams");
+        // var $clubs = $bc.find(".card.clubs");
+        // var $spades = $bc.find(".card.spades");
+        // var $all_cards = $bc.find(".card");
+        // var $queen_of_spades = $bc.find(".card.rank-q.spades");
 
-        console.log("Trick suit: " + _trick_suit);
+        // console.log("Trick suit: " + _trick_suit);
 
-        //If we are the first person
-        if (_trick_suit === null) {
-            //We can start with hearts if they are broken or if we only have hearts left
-            if (_hearts_broken === true || ($hearts.length == $all_cards.length)) {
-                $hearts.removeClass("disabled");
-            }
-            $diams.removeClass("disabled");
-            $clubs.removeClass("disabled");
-            $spades.removeClass("disabled");
-        } else {
-            var suit_class = suit_map[_trick_suit];
-            var $playable_cards = $bc.find('.card.' + suit_class);
-            //If we don't have the trick suit, allow every card
-            if ($playable_cards.length === 0) {
-                $playable_cards = $bc.find('.card');
-            }
-            $playable_cards.removeClass("disabled");
-        }
-        //Finally re-disable cards if this is the first trick
-        if ($all_cards.length == 13) {
-            $queen_of_spades.addClass("disabled");
-            $hearts.addClass("disabled");
-        }
+        // //If we are the first person
+        // if (_trick_suit === null) {
+        //     //We can start with hearts if they are broken or if we only have hearts left
+        //     if (_hearts_broken === true || ($hearts.length == $all_cards.length)) {
+        //         $hearts.removeClass("disabled");
+        //     }
+        //     $diams.removeClass("disabled");
+        //     $clubs.removeClass("disabled");
+        //     $spades.removeClass("disabled");
+        // } else {
+        //     var suit_class = suit_map[_trick_suit];
+        //     var $playable_cards = $bc.find('.card.' + suit_class);
+        //     //If we don't have the trick suit, allow every card
+        //     if ($playable_cards.length === 0) {
+        //         $playable_cards = $bc.find('.card');
+        //     }
+            
+        // }
+        // //Finally re-disable cards if this is the first trick
+        // if ($all_cards.length == 13) {
+        //     $queen_of_spades.addClass("disabled");
+        //     $hearts.addClass("disabled");
+        // }
     }
 
     socket.on("cardPlayed", cardPlayed);
@@ -710,11 +724,30 @@ $(document).ready(function() {
                 removeFromHand($hand_card);
 
                 $card.addClass("bottom");
+
             } else {
                 $card.addClass(opponent.dir);
             }
+            $("#played-cards .card").removeClass("callcard")
             $("#played-cards").append($card);
+            $card.addClass("callcard");
+
         }
+
+        //Hovering over the cards should pop them up
+        $("#played-cards .card").hover(
+            function() {
+                //In handler
+                if (!$(this).hasClass("flipped") && !IS_IPAD && !$(this.hasClass("callcard"))) {
+                    $("#played-cards .card").removeClass("hover");
+                    $(this).addClass("hover");
+                }
+            },
+            function() {
+                //Out handler
+                $("#played-cards .card").removeClass("hover");
+            }
+        );
     }
 
     socket.on("heartsBroken", function() {
@@ -835,6 +868,7 @@ $(document).ready(function() {
         });
     }
 
+    
     function getSuit($card) {
         for (var suit in inv_suit_map) {
             if ($card.hasClass(suit)) {

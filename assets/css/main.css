@@ -128,15 +128,18 @@ a {
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
 }
-.score-label {
+
+
+.button {
     position: relative;
-    top: .5px;
-    left: 10px;
+    top: 2px;
+    left: 2px;
     display: inline-block;
     padding: 6.5px 12px;
     background: rgba(0, 0, 0, 0.15);
     border-left: 1px solid rgba(0, 0, 0, .1);
     border-radius: 0px 4px 4px 0px;
+
 }
 #sidr-right {
     width:500px;
