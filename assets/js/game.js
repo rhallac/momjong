@@ -843,7 +843,7 @@ $(document).ready(function() {
         14: "N",
         15: "S",
         16: "E",
-        16: "W"
+        17: "W"
     };
     var inv_rank_map = _.invert(rank_map);
 
