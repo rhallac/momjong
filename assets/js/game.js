@@ -822,15 +822,15 @@ $(document).ready(function() {
         "F": "lsquo",
         "D": "curren",
         "B": "Dagger",
-        "C": "diams",
-        "RD": "trade",
-        "GD": "oline",
-        "SD": "permil",
-        "NW": "amp",
-        "SW": "lt",
-        "EW": "dagger",
-        "WW": "bdquo",
-        "J": "rdquo"
+        "C": "rsquo",
+        "RD": "rsquo",
+        "GD": "Dagger",
+        "SD": "curren",
+        "NW": "uarr",
+        "SW": "darr",
+        "EW": "rarr",
+        "WW": "larr",
+        "J": "iexcl"
     };
     var inv_suit_map = _.invert(suit_map);
 
