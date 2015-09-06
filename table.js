@@ -18,6 +18,7 @@ var Table = function() {
         "E": null,
         "W": null
     };
+    var trade_iteration = 0;
     var played_cards = {};
     var trick_suit = null;
     var state = "waiting";
@@ -92,7 +93,8 @@ var Table = function() {
             scores: this.scores,
             hearts_broken: this.hearts_broken,
             trick_suit: this.trick_suit,
-            played_cards: this.played_cards
+            played_cards: this.played_cards,
+            trade_iteration: this.trade_iteration
         };
     }
 
@@ -106,7 +108,9 @@ var Table = function() {
 
     function readyToTrade() {
         var trade_values = _und.values(this.traded_cards);
-        //removes all elements that are null
+        // check if the state is trading; if it is, immediately return false
+        // if state is not trading, then remove all null values and still return
+        // true (by asserting that the length of the trade_values is 4)
         return this.state == "trading" && _und.compact(trade_values).length == 4;
     }
 
@@ -235,6 +239,7 @@ var Table = function() {
         state: state,
         scores: scores,
         hearts_broken: hearts_broken,
+        trade_iteration: trade_iteration,
 
         //Functions
         nextRound: nextRound,

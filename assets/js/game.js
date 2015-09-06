@@ -627,6 +627,19 @@ $(document).ready(function() {
         return hand_index;
     }
 
+    socket.on("startTrading", startTrading);
+
+    function startTrading(table, new_hand) {
+        _state = table.state;
+        _round = table.round;
+        _turn = table.turn;
+        _hearts_broken = false;
+
+        //Hide and clear the traded cards
+        $("#traded-cards .card").remove();
+        showCards(new_hand, !IS_IPAD);
+    }
+
     socket.on("startPlaying", startPlaying);
 
     function startPlaying(table, new_hand) {
