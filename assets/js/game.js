@@ -826,7 +826,7 @@ $(document).ready(function() {
         "RD": "trade",
         "GD": "oline",
         "SD": "permil",
-        "NW": "amp"
+        "NW": "amp",
         "SW": "lt",
         "EW": "dagger",
         "WW": "bdquo",
