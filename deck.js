@@ -2,66 +2,29 @@ var _und = require("underscore");
 
 var Deck = function() {
     /**
-     * Creates a Tiles 
-
-F = Flower = RANK: 10 
-D = Dot = 1 
-B = Bam = 2
-C = Crack = 3
-RD = Red Dragon
-GD = Green Dragon
-SD = Soap Dragon
-NW = North
-SW = South
-EW = East 
-WW = West
-J = Joker = 0 
-
+     * Creates a deck
+     *
+     * @return An array containing a deck
+     *         ex: "11H" is the Jack of hearts
      **/
-    var suits = ["F", "D", "B", "C", "RD", "GD", "SD", "NW", "SW", "EW". "WW", "J"];
+    var suits = ["H", "C", "S", "D"];
+    var n = 52;
     var cards = [];
+
+    var index = n / suits.length;
     var count = 0;
-
-    for (var i = 1; i <= 8; ++i){
-        cards[count++] = {
-            suit: "F",
-            rank: 0,
-            num: i
-        };
-    }
-
-    for (var i = 1; i <= 3; ++i){
-        for (var j = 1; j <= 9; ++j){
-            for (var k = 1; k <= 4; ++k){
-                cards[count++] = {
-                    suit: suits[i],
-                    rank: j,
-                    num: k
-                };
-            }
-        }
-    }
-
-    for (var i = 4; i <= 10; ++i){
-        for (var j = 1; j <= 4; ++j){
+    for (var i = 0; i <= 3; ++i) {
+        for (var j = 1; j <= index; ++j) {
             cards[count++] = {
                 suit: suits[i],
-                rank: 0,
-                num: j
-            }
+                rank: j
+            };
         }
     }
-    
-    for (var i = 1; i <= 8; ++i){
-        cards[count++] = {
-            suit: "J",
-            rank: 0,
-            num: i
-        };
-    }
 
-
-
+    /**
+     * Shuffles the deck
+     **/
 
     function shuffle() {
         cards = _und.shuffle(cards);
@@ -90,25 +53,16 @@ J = Joker = 0
 
     function sortValue(card) {
         var suitVals = {
-            "F": 0,
+            "C": 0,
             "D": 1,
-            "B": 2,
-            "C": 3,
-            "RD": 4,
-            "GD": 5,
-            "SD": 6,
-            "NW": 7,
-            "SW": 8,
-            "EW": 9,
-            "WW": 10,
-            "J": 11,
+            "S": 2,
+            "H": 3
         };
         //Give each suit a value for sorting
-        var suitVal = suitVals[card.suit] * 40;
+        var suitVal = suitVals[card.suit] * 13;
         //Aces are high
-        var rankVal = card.rank*4 - 4;
-        var numVal = card.num;
-        return rankVal + suitVal + numVal;
+        var rankVal = card.rank == 1 ? 13 : card.rank - 1;
+        return rankVal + suitVal;
     }
     return {
         shuffle: shuffle,
