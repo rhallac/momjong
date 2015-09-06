@@ -5,16 +5,16 @@ var Deck = function() {
      * Creates a Tiles 
 
 F = Flower = RANK: 10 
-D = Dot = 1 
-B = Bam = 2
-C = Crack = 3
-RD = Red Dragon
-GD = Green Dragon
-SD = Soap Dragon
-NW = North
-SW = South
-EW = East 
-WW = West
+D = Dot = 1 RANK: number 
+B = Bam = 2 RANK: number 
+C = Crack = 3 RANK: number
+SD = Soap Dragon RANK: 11
+GD = Green Dragon RANK: 12
+RD = Red Dragon RANK: 13
+NW = North RANK: 14
+SW = South RANK: 15
+EW = East RANK: 16
+WW = WestRANK: 17
 J = Joker = 0 
 
      **/
@@ -22,14 +22,16 @@ J = Joker = 0
     var cards = [];
     var count = 0;
 
+    //creates flowers
     for (var i = 1; i <= 8; ++i){
         cards[count++] = {
             suit: "F",
-            rank: 0,
+            rank: 10,
             num: i
         };
     }
 
+    //creates bam/crack/dot 1-9
     for (var i = 1; i <= 3; ++i){
         for (var j = 1; j <= 9; ++j){
             for (var k = 1; k <= 4; ++k){
@@ -42,11 +44,12 @@ J = Joker = 0
         }
     }
 
+ 
     for (var i = 4; i <= 10; ++i){
         for (var j = 1; j <= 4; ++j){
             cards[count++] = {
                 suit: suits[i],
-                rank: 0,
+                rank: 7+i,
                 num: j
             }
         }

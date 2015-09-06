@@ -835,10 +835,15 @@ $(document).ready(function() {
     var inv_suit_map = _.invert(suit_map);
 
     var rank_map = {
-        1: "a",
-        11: "j",
-        12: "q",
-        13: "k"
+        0: "Joker",
+        10: "Flower",
+        11: "Soap",
+        12: "Green",
+        13: "Red",
+        14: "N",
+        15: "S",
+        16: "E",
+        16: "W"
     };
     var inv_rank_map = _.invert(rank_map);
 
